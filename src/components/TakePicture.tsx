@@ -1,10 +1,11 @@
 import React, {useCallback, useRef} from 'react';
-import {GestureResponderEvent, StyleSheet} from 'react-native';
+import {GestureResponderEvent, StyleSheet, View} from 'react-native';
 import CameraWarper from './CameraWarper';
 import {Camera, PhotoFile, useCameraDevices} from 'react-native-vision-camera';
 import CaptureButton from './CaptureButton';
 import MediaPreview from './MediaPreview';
 import {CONTENT_PADDING} from './contains';
+import CloseButton from './common/CloseButton';
 
 interface TakePictureProps {
   isActive: boolean;
@@ -45,11 +46,15 @@ const TakePicture = (props: TakePictureProps) => {
         enableZoomGesture
         photo
       />
-      <CaptureButton
-        camera={camera}
-        style={styles.captureButton}
-        onMediaCaptured={onPhotoCaptured}
-      />
+      <CloseButton onPress={onInactive} />
+
+      <View style={styles.wrapper}>
+        <CaptureButton
+          camera={camera}
+          style={styles.captureButton}
+          onMediaCaptured={onPhotoCaptured}
+        />
+      </View>
 
       <MediaPreview
         mediaPath={mediaPath}
@@ -62,6 +67,9 @@ const TakePicture = (props: TakePictureProps) => {
 export default TakePicture;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
   captureButton: {
     position: 'absolute',
     bottom: CONTENT_PADDING,
