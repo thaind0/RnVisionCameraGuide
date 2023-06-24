@@ -3,6 +3,8 @@ import {StyleSheet} from 'react-native';
 import CameraWarper from './CameraWarper';
 import {Camera, PhotoFile, useCameraDevices} from 'react-native-vision-camera';
 import CaptureButton from './CaptureButton';
+import MediaPreview from './MediaPreview';
+import {CONTENT_PADDING} from './contains';
 
 interface TakePictureProps {
   isActive: boolean;
@@ -13,12 +15,14 @@ const TakePicture = (props: TakePictureProps) => {
   const {isActive, onInactive} = props;
   const devices = useCameraDevices();
   const camera = useRef<Camera>(null);
-
   const device = devices.back;
 
-  const onPhotoCaptured = useCallback((file: PhotoFile) => {
-    console.log(file);
-  }, []);
+  const [mediaPath, setMediaPath] = React.useState<string>();
+
+  const onPhotoCaptured = useCallback(
+    (file: PhotoFile) => setMediaPath(file.path),
+    [],
+  );
 
   return (
     <CameraWarper isActive={isActive} loading={!device} onInactive={onInactive}>
@@ -34,6 +38,11 @@ const TakePicture = (props: TakePictureProps) => {
         style={styles.captureButton}
         onMediaCaptured={onPhotoCaptured}
       />
+
+      <MediaPreview
+        mediaPath={mediaPath}
+        onInactive={() => setMediaPath(undefined)}
+      />
     </CameraWarper>
   );
 };
@@ -43,7 +52,7 @@ export default TakePicture;
 const styles = StyleSheet.create({
   captureButton: {
     position: 'absolute',
-    bottom: 10,
+    bottom: CONTENT_PADDING,
     alignSelf: 'center',
   },
 });

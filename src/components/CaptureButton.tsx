@@ -1,6 +1,7 @@
 import React, {RefObject, useCallback} from 'react';
 import {StyleSheet, TouchableOpacity, View, ViewProps} from 'react-native';
 import {Camera, PhotoFile} from 'react-native-vision-camera';
+import {CAPTURE_BUTTON_SIZE} from './contains';
 
 interface CaptureButtonProps extends ViewProps {
   camera: RefObject<Camera>;
@@ -29,9 +30,9 @@ export default CaptureButton;
 
 const styles = StyleSheet.create({
   captureButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: CAPTURE_BUTTON_SIZE,
+    height: CAPTURE_BUTTON_SIZE,
+    borderRadius: CAPTURE_BUTTON_SIZE / 2,
     padding: 4,
     borderWidth: 2,
     borderStyle: 'dotted',
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   },
   captureButtonInner: {
     flex: 1,
-    borderRadius: 40,
+    borderRadius: CAPTURE_BUTTON_SIZE / 2,
     backgroundColor: 'white',
   },
 });
