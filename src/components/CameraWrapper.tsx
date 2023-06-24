@@ -1,14 +1,14 @@
 import React from 'react';
 import {ActivityIndicator, Modal, SafeAreaView, StyleSheet} from 'react-native';
 
-interface CameraWarperProps {
+interface CameraWrapperProps {
   isActive: boolean;
   onInactive?: () => void;
   children: React.ReactNode;
   loading?: boolean;
 }
 
-const CameraWarper = (props: CameraWarperProps) => {
+const CameraWrapper = (props: CameraWrapperProps) => {
   const {isActive, onInactive, children, loading} = props;
 
   return (
@@ -23,7 +23,7 @@ const CameraWarper = (props: CameraWarperProps) => {
   );
 };
 
-export default CameraWarper;
+export default CameraWrapper;
 
 const styles = StyleSheet.create({
   container: {

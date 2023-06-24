@@ -6,7 +6,7 @@ import {
   VideoFile,
   useCameraDevices,
 } from 'react-native-vision-camera';
-import CameraWarper from './CameraWarper';
+import CameraWrapper from './CameraWrapper';
 import CaptureButton from './CaptureButton';
 import MediaPreview from './MediaPreview';
 import CloseButton from './common/CloseButton';
@@ -47,7 +47,10 @@ const RecordVideo = (props: RecordVideoProps) => {
   );
 
   return (
-    <CameraWarper isActive={isActive} loading={!device} onInactive={onInactive}>
+    <CameraWrapper
+      isActive={isActive}
+      loading={!device}
+      onInactive={onInactive}>
       <Camera
         ref={camera}
         style={StyleSheet.absoluteFill}
@@ -74,7 +77,7 @@ const RecordVideo = (props: RecordVideoProps) => {
         type={media?.type}
         onInactive={() => setMedia(undefined)}
       />
-    </CameraWarper>
+    </CameraWrapper>
   );
 };
 

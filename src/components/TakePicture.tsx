@@ -1,6 +1,6 @@
 import React, {useCallback, useRef} from 'react';
 import {GestureResponderEvent, StyleSheet, View} from 'react-native';
-import CameraWarper from './CameraWarper';
+import CameraWrapper from './CameraWrapper';
 import {Camera, PhotoFile, useCameraDevices} from 'react-native-vision-camera';
 import CaptureButton from './CaptureButton';
 import MediaPreview from './MediaPreview';
@@ -36,7 +36,10 @@ const TakePicture = (props: TakePictureProps) => {
   );
 
   return (
-    <CameraWarper isActive={isActive} loading={!device} onInactive={onInactive}>
+    <CameraWrapper
+      isActive={isActive}
+      loading={!device}
+      onInactive={onInactive}>
       <Camera
         ref={camera}
         style={StyleSheet.absoluteFill}
@@ -60,7 +63,7 @@ const TakePicture = (props: TakePictureProps) => {
         mediaPath={mediaPath}
         onInactive={() => setMediaPath(undefined)}
       />
-    </CameraWarper>
+    </CameraWrapper>
   );
 };
 
