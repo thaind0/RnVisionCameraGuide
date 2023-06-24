@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, SafeAreaView, StyleSheet} from 'react-native';
 import TakePicture from './src/components/TakePicture';
+import {requestCameraPermission} from './src/utils/camera-permission';
 
 type ActivatingCamera = 'TakePicture' | 'RecordVideo';
 
@@ -8,11 +9,18 @@ function App(): JSX.Element {
   const [activatingCamera, setActivatingCamera] =
     React.useState<ActivatingCamera | null>(null);
 
+  const handelOpenCamera = async (type: ActivatingCamera) => {
+    const cameraPermission = await requestCameraPermission();
+    if (cameraPermission === 'authorized') {
+      setActivatingCamera(type);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Button
         title="Take Picture"
-        onPress={() => setActivatingCamera('TakePicture')}
+        onPress={() => handelOpenCamera('TakePicture')}
       />
 
       <TakePicture
