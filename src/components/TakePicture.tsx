@@ -1,5 +1,5 @@
 import React, {useCallback, useRef} from 'react';
-import {StyleSheet} from 'react-native';
+import {GestureResponderEvent, StyleSheet} from 'react-native';
 import CameraWarper from './CameraWarper';
 import {Camera, PhotoFile, useCameraDevices} from 'react-native-vision-camera';
 import CaptureButton from './CaptureButton';
@@ -19,6 +19,16 @@ const TakePicture = (props: TakePictureProps) => {
 
   const [mediaPath, setMediaPath] = React.useState<string>();
 
+  const handleFocus = useCallback(
+    async ({nativeEvent}: GestureResponderEvent) => {
+      await camera?.current?.focus({
+        x: Math.round(nativeEvent.pageX),
+        y: Math.round(nativeEvent.pageX),
+      });
+    },
+    [],
+  );
+
   const onPhotoCaptured = useCallback(
     (file: PhotoFile) => setMediaPath(file.path),
     [],
@@ -31,6 +41,8 @@ const TakePicture = (props: TakePictureProps) => {
         style={StyleSheet.absoluteFill}
         device={device!}
         isActive={isActive}
+        onTouchStart={handleFocus}
+        enableZoomGesture
         photo
       />
       <CaptureButton

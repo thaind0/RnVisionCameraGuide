@@ -1,13 +1,5 @@
 import React, {useMemo} from 'react';
-import {
-  Image,
-  Modal,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import {CONTENT_PADDING} from './contains';
+import {Button, Image, Modal, SafeAreaView, StyleSheet} from 'react-native';
 
 interface MediaPreviewProps {
   mediaPath?: string;
@@ -21,23 +13,10 @@ const MediaPreview = ({mediaPath, onInactive}: MediaPreviewProps) => {
     <Modal visible={!!mediaPath} onRequestClose={onInactive}>
       <SafeAreaView style={[StyleSheet.absoluteFill]}>
         <Image source={source} style={StyleSheet.absoluteFill} />
-        <TouchableOpacity onPress={onInactive} style={styles.closeButton}>
-          <Text>Close</Text>
-        </TouchableOpacity>
+        <Button onPress={onInactive} title="Close" />
       </SafeAreaView>
     </Modal>
   );
 };
 
 export default MediaPreview;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  closeButton: {
-    margin: CONTENT_PADDING,
-    backgroundColor: '#ffffff80',
-    display: 'flex',
-  },
-});
