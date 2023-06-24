@@ -16,7 +16,6 @@ function App(): JSX.Element {
     if (cameraPermission === 'authorized') {
       if (type === 'RecordVideo') {
         const microphonePermission = await requestMicrophonePermission();
-        console.log('microphonePermission', microphonePermission);
 
         if (microphonePermission !== 'authorized') {
           return;
