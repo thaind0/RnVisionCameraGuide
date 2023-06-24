@@ -1,5 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, Modal, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  Modal,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 
 interface CameraWarperProps {
   isActive: boolean;
@@ -18,6 +24,7 @@ const CameraWarper = (props: CameraWarperProps) => {
       style={styles.container}>
       <SafeAreaView style={StyleSheet.absoluteFill}>
         {loading ? <ActivityIndicator style={styles.loading} /> : children}
+        <Button onPress={onInactive} title="Close" />
       </SafeAreaView>
     </Modal>
   );

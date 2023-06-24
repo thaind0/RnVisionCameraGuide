@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, SafeAreaView, StyleSheet} from 'react-native';
 import TakePicture from './src/components/TakePicture';
 import {requestCameraPermission} from './src/utils/camera-permission';
+import RecordVideo from './src/components/RecordVideo';
+import {requestMicrophonePermission} from './src/utils/microphone-permission';
 
 type ActivatingCamera = 'TakePicture' | 'RecordVideo';
 
@@ -12,6 +14,14 @@ function App(): JSX.Element {
   const handelOpenCamera = async (type: ActivatingCamera) => {
     const cameraPermission = await requestCameraPermission();
     if (cameraPermission === 'authorized') {
+      if (type === 'RecordVideo') {
+        const microphonePermission = await requestMicrophonePermission();
+        console.log('microphonePermission', microphonePermission);
+
+        if (microphonePermission !== 'authorized') {
+          return;
+        }
+      }
       setActivatingCamera(type);
     }
   };
@@ -22,9 +32,17 @@ function App(): JSX.Element {
         title="Take Picture"
         onPress={() => handelOpenCamera('TakePicture')}
       />
-
+      <Button
+        title="Record Video"
+        onPress={() => handelOpenCamera('RecordVideo')}
+      />
       <TakePicture
         isActive={activatingCamera === 'TakePicture'}
+        onInactive={() => setActivatingCamera(null)}
+      />
+
+      <RecordVideo
+        isActive={activatingCamera === 'RecordVideo'}
         onInactive={() => setActivatingCamera(null)}
       />
     </SafeAreaView>
